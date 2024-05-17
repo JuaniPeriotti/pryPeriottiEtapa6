@@ -1,5 +1,6 @@
 using System.Drawing;
 using System.Security.Principal;
+using System.Windows.Forms;
 
 namespace pryPeriottiEtapa6
 {
@@ -30,18 +31,31 @@ namespace pryPeriottiEtapa6
                 MessageBox.Show("Seleccionar Cantidad");
             }
             Contador = 0;
-            while(Contador < Cantidad) 
+            while (Contador < Cantidad)
             {
                 Largo = 20;
                 Vehiculo = new clsVehiculo();
-                Vehiculo.crearVehiculoAleatorio();
-                lstVehiculos.Add(Vehiculo);
+                Vehiculo.crearVehiculoAleatorio();                
                 Vehiculo.imagVehiculo.Tag = "Vehiculo";
                 Vehiculo.imagVehiculo.Location = new Point(Lugar, Largo);
                 Controls.Add(Vehiculo.imagVehiculo);
+                lstVehiculos.Add(Vehiculo);
                 Contador++;
                 Lugar = Lugar + 120;
             }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            foreach (clsVehiculo lista in lstVehiculos)
+            {
+                Vehiculo.imagVehiculo.Location = new Point(Lugar - 10, Largo);
+            }
+        }
+
+        private void btnMover_Click(object sender, EventArgs e)
+        {
+            timer1.Start();
         }
     }
 }
